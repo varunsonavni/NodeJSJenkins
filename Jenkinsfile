@@ -51,7 +51,7 @@ pipeline {
         when { branch 'stage'}
         steps {
         sh '''pwd
-              rsync -zhvr . ubuntu@3.84.86.136:/home/ubuntu/stage/
+              rsync -zhvr . ubuntu@44.202.54.38:/home/ubuntu/stage/
               '''
       }
     }
@@ -59,14 +59,14 @@ pipeline {
     stage('Install Packaged - stage') {
       when { branch 'stage'}
       steps {
-        sh 'ssh -t ubuntu@3.84.86.136 \'cd /home/ubuntu/stage && npm i\''
+        sh 'ssh -t ubuntu@44.202.54.38 \'cd /home/ubuntu/stage && npm i\''
       }
     }
 
     stage('Start Application - stage') {
       when { branch 'stage'}
       steps {
-        sh 'ssh -t ubuntu@3.84.86.136 "cd /home/ubuntu/stage/"'
+        sh 'ssh -t ubuntu@44.202.54.38 "cd /home/ubuntu/stage/"'
       }
     }
 
@@ -74,29 +74,6 @@ pipeline {
     
     
     
-    
-      stage('copy to ec2 - dev') {
-      when { branch 'dev'}
-      steps {
-        sh '''pwd
-              rsync -zhvr . ubuntu@3.84.86.136:/home/ubuntu/dev/
-              '''
-      }
-    }
-
-    stage('Install Packaged - dev') {
-      when { branch 'dev'}
-      steps {
-        sh 'ssh -t ubuntu@3.84.86.136 \'cd /home/ubuntu/dev && npm i\''
-      }
-    }
-
-    stage('Start Application - dev') {
-      when { branch 'dev'}
-      steps {
-        sh 'ssh -t ubuntu@3.84.86.136 "cd /home/ubuntu/dev/"'
-      }
-    }
-
+  
   }
 }
