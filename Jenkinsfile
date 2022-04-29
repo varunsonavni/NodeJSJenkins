@@ -33,14 +33,14 @@ pipeline {
     stage('Install Packaged') {
       when { branch 'main'}
       steps {
-        sh 'ssh -t ubuntu@3.84.86.136 \'cd /home/ubuntu/main && npm i\''
+        sh 'ssh ubuntu@3.84.86.136 \'cd /home/ubuntu/main && npm i\''
       }
     }
 
     stage('Start Application') {
       when { branch 'main'}
       steps {
-        sh 'ssh -t ubuntu@3.84.86.136 \"cd /home/ubuntu/main/ && pm2 restart\"'
+        sh 'ssh ubuntu@3.84.86.136 \"cd /home/ubuntu/main/ && pm2 restart\"'
       }
     }
 
@@ -59,14 +59,14 @@ pipeline {
     stage('Install Packaged - stage') {
       when { branch 'stage'}
       steps {
-        sh 'ssh -t ubuntu@44.202.54.38 \'cd /home/ubuntu/stage && npm i\''
+        sh 'ssh ubuntu@44.202.54.38 \"cd /home/ubuntu/stage && npm i\"'
       }
     }
 
     stage('Start Application - stage') {
       when { branch 'stage'}
       steps {
-        sh 'ssh -t ubuntu@44.202.54.38 \"cd /home/ubuntu/stage/ && pm2 restart\"'
+        sh 'ssh ubuntu@44.202.54.38 \"cd /home/ubuntu/stage/ && pm2 restart\"'
       }
     }
 
