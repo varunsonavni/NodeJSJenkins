@@ -13,7 +13,7 @@ pipeline {
         stage('version check') {
           steps {
             sh '''git --version
-                  aws --version'''
+                  '''
           }
         }
 
@@ -23,19 +23,20 @@ pipeline {
     stage('copy to ec2') {
       steps {
         sh '''pwd
-              rsync -zhvr . ubuntu@54.160.236.91:/home/ubuntu/viraj/'''
+              rsync -zhvr . ubuntu@3.84.86.136:/home/ubuntu/varun/
+              '''
       }
     }
 
     stage('Install Packaged') {
       steps {
-        sh 'ssh -t ubuntu@54.160.236.91 \'cd /home/ubuntu/viraj && npm i\''
+        sh 'ssh -t ubuntu@3.84.86.136 \'cd /home/ubuntu/varun && npm i\''
       }
     }
 
     stage('Start Application') {
       steps {
-        sh 'ssh -t ubuntu@54.160.236.91 "cd /home/ubuntu/viraj/ && pm2 restart app.js"'
+        sh 'ssh -t ubuntu@3.84.86.136 "cd /home/ubuntu/varun/"'
       }
     }
 
