@@ -6,7 +6,7 @@ pipeline {
     
         stage('version check') {
           steps {
-            sh '''git --version && npm --version && jenkins --version
+            sh '''git --version && jenkins --version
                   '''
           }
         }
