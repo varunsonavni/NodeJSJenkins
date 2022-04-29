@@ -47,7 +47,7 @@ pipeline {
     
     
     
-      stage('copy to ec2') {
+      stage('copy to ec2 - stage') {
         when { branch 'stage'}
         steps {
         sh '''pwd
@@ -56,14 +56,14 @@ pipeline {
       }
     }
 
-    stage('Install Packaged') {
+    stage('Install Packaged - stage') {
       when { branch 'stage'}
       steps {
         sh 'ssh -t ubuntu@3.84.86.136 \'cd /home/ubuntu/stage && npm i\''
       }
     }
 
-    stage('Start Application') {
+    stage('Start Application - stage') {
       when { branch 'stage'}
       steps {
         sh 'ssh -t ubuntu@3.84.86.136 "cd /home/ubuntu/stage/"'
@@ -75,7 +75,7 @@ pipeline {
     
     
     
-      stage('copy to ec2') {
+      stage('copy to ec2 - dev') {
       when { branch 'dev'}
       steps {
         sh '''pwd
@@ -84,14 +84,14 @@ pipeline {
       }
     }
 
-    stage('Install Packaged') {
+    stage('Install Packaged - dev') {
       when { branch 'dev'}
       steps {
         sh 'ssh -t ubuntu@3.84.86.136 \'cd /home/ubuntu/dev && npm i\''
       }
     }
 
-    stage('Start Application') {
+    stage('Start Application - dev') {
       when { branch 'dev'}
       steps {
         sh 'ssh -t ubuntu@3.84.86.136 "cd /home/ubuntu/dev/"'
