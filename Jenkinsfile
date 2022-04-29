@@ -40,7 +40,7 @@ pipeline {
     stage('Start Application') {
       when { branch 'main'}
       steps {
-        sh 'ssh ubuntu@3.84.86.136 \"cd /home/ubuntu/main/ && pm2 restart\"'
+        sh 'ssh ubuntu@3.84.86.136 \"cd /home/ubuntu/main/ && pm2 restart index.js\"'
       }
     }
 
@@ -66,7 +66,7 @@ pipeline {
     stage('Start Application - stage') {
       when { branch 'stage'}
       steps {
-        sh 'ssh ubuntu@44.202.54.38 \"cd /home/ubuntu/stage/ && pm2 restart\"'
+        sh 'ssh ubuntu@44.202.54.38 \"cd /home/ubuntu/stage/ && pm2 restart index.js\"'
       }
     }
 
