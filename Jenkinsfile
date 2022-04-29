@@ -1,26 +1,18 @@
 pipeline {
+  
   agent any
+  
   stages {
-    stage('test') {
-      parallel {
-        stage('test') {
-          steps {
-            echo 'testing'
-            sh 'echo "testing"'
-          }
-        }
-
+    
         stage('version check') {
           steps {
-            sh '''git --version
+            sh '''git --version && npm --version && jenkins --version
                   '''
           }
         }
+    
 
-      }
-    }
-
-    stage('copy to ec2') {
+    stage('Sync file to Main Server') {
       when { branch 'main'}
       steps {
         
@@ -30,14 +22,14 @@ pipeline {
       }
     }
 
-    stage('Install Packaged') {
+    stage('Install Packages on Main Server') {
       when { branch 'main'}
       steps {
         sh 'ssh ubuntu@3.84.86.136 \'cd /home/ubuntu/main && npm i\''
       }
     }
 
-    stage('Start Application') {
+    stage('Production Live Application') {
       when { branch 'main'}
       steps {
         sh 'ssh ubuntu@3.84.86.136 \"cd /home/ubuntu/main/ && pm2 restart index.js\"'
@@ -47,7 +39,7 @@ pipeline {
     
     
     
-      stage('copy to ec2 - stage') {
+      stage('Sync file to Stage Server') {
         when { branch 'stage'}
         steps {
         sh '''pwd
@@ -56,14 +48,14 @@ pipeline {
       }
     }
 
-    stage('Install Packaged - stage') {
+    stage('Install Packages on Stage Server') {
       when { branch 'stage'}
       steps {
         sh 'ssh ubuntu@44.202.54.38 \"cd /home/ubuntu/stage && npm i\"'
       }
     }
 
-    stage('Start Application - stage') {
+    stage('Staging Live Application') {
       when { branch 'stage'}
       steps {
         sh 'ssh ubuntu@44.202.54.38 \"cd /home/ubuntu/stage/ && pm2 restart index.js\"'
