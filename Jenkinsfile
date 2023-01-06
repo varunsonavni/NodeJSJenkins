@@ -12,7 +12,7 @@ pipeline {
         stage('image build') {
           steps {
             sh "aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 970355526286.dkr.ecr.us-east-1.amazonaws.com"
-            sh "docker build 970355526286.dkr.ecr.us-east-1.amazonaws.com/nodejs:$BUILD_NUMBER ."
+            sh "docker build -t 970355526286.dkr.ecr.us-east-1.amazonaws.com/nodejs:$BUILD_NUMBER ."
             sh "docker push 970355526286.dkr.ecr.us-east-1.amazonaws.com/nodejs:$BUILD_NUMBER"
           }
         }
