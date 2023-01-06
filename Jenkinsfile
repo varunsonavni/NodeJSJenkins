@@ -6,7 +6,7 @@ pipeline {
     
         stage('version check') {
           steps {
-            echo %BUILD_NUMBER%
+            sh "echo %BUILD_NUMBER%"
           }
         }
   }
