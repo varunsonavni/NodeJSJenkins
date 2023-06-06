@@ -1,3 +1,7 @@
+// Install DockerPipeline Plugin
+// usermod -aG docker jenkins
+// restart jenkins url:8080/restart
+
 pipeline {
     agent none
 
