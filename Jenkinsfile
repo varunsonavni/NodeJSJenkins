@@ -14,6 +14,7 @@ pipeline {
                 sh 'node -v'
                 sh 'pwd'
                 sh 'ls'
+                sh 'touch test.js'
             }
         }
         
