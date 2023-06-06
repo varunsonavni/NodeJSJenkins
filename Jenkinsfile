@@ -17,8 +17,9 @@ pipeline {
                 sh 'echo "first step"'
                 sh 'node -v'
                 sh 'pwd'
-                sh 'ls'
                 sh 'touch test.js'
+                sh 'ls'
+
             }
         }
         
@@ -31,7 +32,6 @@ pipeline {
             steps {
                 // Perform testing steps here
                 sh 'echo "second step"'
-                sh 'python -v'
                 sh 'pwd'
                 sh 'ls'
             }
