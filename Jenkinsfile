@@ -1,28 +1,36 @@
 pipeline {
-  
-  agent any
-  
-  stages {
-    
-        stage('version check') {
-          steps {
-            sh "echo $GIT_COMMIT"
-          }
+    agent none
+
+    stages {
+        stage('Build') {
+            agent {
+                docker {
+                    image 'node:16'
+                }
+            }
+            steps {
+                // Perform build steps here
+                sh 'echo "first step"'
+                sh 'node -v'
+                sh 'pwd'
+                sh 'ls'
+            }
         }
-        stage('image build') {
-          steps {
-            sh "aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 970355526286.dkr.ecr.us-east-1.amazonaws.com"
-            sh "docker build -t 970355526286.dkr.ecr.us-east-1.amazonaws.com/nodejs:$GIT_COMMIT ."
-            sh "docker push 970355526286.dkr.ecr.us-east-1.amazonaws.com/nodejs:$GIT_COMMIT"
-          }
+        
+        stage('Test') {
+            agent {
+                docker {
+                    image 'python:latest'
+                }
+            }
+            steps {
+                // Perform testing steps here
+                sh 'echo "second step"'
+                sh 'python -v'
+                sh 'pwd'
+                sh 'ls'
+            }
         }
-        stage('EKS Cluster Update') {
-          steps {
-            sh '''
-            cat "deploy.yaml" | sed "s/{{TAG}}/$GIT_COMMIT/g" | kubectl apply -f -
-            '''
-          }
-        }
-  }
+        
+    }
 }
-    
