@@ -10,7 +10,8 @@ pipeline {
 
         stage('Build') {
             steps {
-                sh 'npm -v'
+                sh 'node -v'
+                sh 'npm'
             }
         }
     }
