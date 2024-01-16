@@ -1,63 +1,17 @@
-// Install DockerPipeline Plugin
-// usermod -aG docker jenkins
-// restart jenkins url:8080/restart
-
 pipeline {
-    agent none
+    agent any
 
     stages {
-        stage('Build') {
-            agent {
-                docker {
-                    image 'node:16'
-                }
-            }
+        stage('Install Node.js') {
             steps {
-                // Perform build steps here
-                sh 'echo "first step"'
-                sh 'node -v'
-                sh 'pwd'
-                sh 'touch test.js'
-                sh 'ls'
+                nodejs('NODEJS')  // Use the configured NodeJS installation
+            }
+        }
 
-            }
-        }
-        
-        stage('Test') {
-            agent {
-                docker {
-                    image 'python:latest'
-                }
-            }
+        stage('Build') {
             steps {
-                // Perform testing steps here
-                sh 'echo "second step"'
-                sh 'pwd'
-                sh 'ls'
+                sh 'npm -v'
             }
         }
-        
     }
 }
-
-// pipeline {
-//     agent none
-//     stages {
-//         stage('Back-end') {
-//             agent {
-//                 docker { image 'maven:3.9.0-eclipse-temurin-11' }
-//             }
-//             steps {
-//                 sh 'mvn --version'
-//             }
-//         }
-//         stage('Front-end') {
-//             agent {
-//                 docker { image 'node:18.16.0-alpine' }
-//             }
-//             steps {
-//                 sh 'node --version'
-//             }
-//         }
-//     }
-// }
