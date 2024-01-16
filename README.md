@@ -1,3 +1,4 @@
+1) 
 touch ~/.bashrc 
 
 curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.7/install.sh | bash
@@ -18,7 +19,7 @@ echo "hello"
 
 
 
-
+2) 
 
 ADD Plugin Nodejs, go to tools edit Node give name as NODEJS and 
 edit the pipeline to use that tool. Click on install automatically.
